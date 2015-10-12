@@ -38,4 +38,6 @@
 	<jpa:repositories base-package="xam.cross.repository"
 		entity-manager-factory-ref="emf" transaction-manager-ref="txManager" />
 
+	<import resource="security.xml" />
+
 </beans>

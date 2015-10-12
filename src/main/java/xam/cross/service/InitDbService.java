@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,26 +37,26 @@ public class InitDbService {
 	
 	@PostConstruct
 	public void init(){
-		Role roleUser = new Role();
-		roleUser.setName("ROLE_USER");
+		Role roleUser = new Role("ROLE_USER");
 		roleRepository.save(roleUser);
 		
-		Role roleAdmin = new Role();
-		roleAdmin.setName("ROLE_ADMIN");
+		Role roleAdmin = new Role("ROLE_ADMIN");
 		roleRepository.save(roleAdmin);
 		
 		Customer admin = new Customer();
 		admin.setEmail("admin@blackbooks.com");
-		admin.setPassword("admin");
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
+		admin.setPassword(encoder.encode("admin"));
 		List <Role> roles = new ArrayList<Role>();
-		roles.add(roleUser);
 		roles.add(roleAdmin);
+		roles.add(roleUser);
 		admin.setRoles(roles);
 		customerRepository.save(admin);
 		
 		ShoppingCart adminCart = new ShoppingCart();
 		adminCart.setCustomer(admin);
-		shoppingCartRepository.save(adminCart);
+		
 		
 		Book harryPotter = new Book();
 		harryPotter.setAuthors("Joan Rowling");
@@ -65,18 +66,23 @@ public class InitDbService {
 		List<ShoppingCart> carts1 = new ArrayList<ShoppingCart>();
 		carts1.add(adminCart);
 		harryPotter.setCarts(carts1);
-		bookRepository.save(harryPotter);
+		
 		
 		Book mobyDick = new Book();
 		mobyDick.setAuthors("Herman Melville");
 		mobyDick.setPrice(4.99);
 		mobyDick.setDescription("Hunted pale mammal");
 		mobyDick.setTitle("Moby Dick");
-		List<ShoppingCart> carts2 = new ArrayList<ShoppingCart>();
-		carts2.add(adminCart);
-		harryPotter.setCarts(carts2);
-		bookRepository.save(mobyDick);
+		mobyDick.setCarts(carts1);
 		
+		List<Book> books = new ArrayList<Book>();
+		books.add(harryPotter);
+		books.add(mobyDick);
+		adminCart.setOrderedBooks(books);
+		
+		shoppingCartRepository.save(adminCart);
+		bookRepository.save(mobyDick);
+		bookRepository.save(harryPotter);
 		
 		
 	}

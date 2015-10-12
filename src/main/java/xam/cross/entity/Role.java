@@ -16,6 +16,14 @@ public class Role {
 	
 	private String name;
 	
+	public Role(){
+
+	}
+	
+	public Role(String role){
+		name = role;
+	}
+	
 	@ManyToMany(mappedBy="roles")
 	private List<Customer> customers;
 

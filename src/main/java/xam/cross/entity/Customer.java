@@ -2,6 +2,7 @@ package xam.cross.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,11 +22,11 @@ public class Customer {
 	
 	private String password;
 	
-	@OneToOne(fetch=FetchType.EAGER)
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private ShoppingCart cart;
 	
 	
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable
 	private List<Role> roles;
 

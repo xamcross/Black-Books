@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ include file="../layout/taglib.jsp" %>
+<%@ include file="../layout/taglib.jsp"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="security"%>
 
 <!DOCTYPE html>
 <html>
@@ -27,7 +29,7 @@
 <body>
 
 
-<extras:useAttribute name="current"/>
+	<extras:useAttribute name="current" />
 	<div class="container">
 		<!-- Static navbar -->
 		<nav class="navbar navbar-default">
@@ -45,10 +47,23 @@
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
-						<li class="${current == 'index' ? 'active' : ''}"><a href='<spring:url value="/index"/>'>Home</a></li>
-						<li class="${current == 'customers' ? 'active' : ''}"><a href='<spring:url value="/customers"/>'>Customers</a></li>
-						<li class="${current == 'books' ? 'active' : ''}"><a href='<spring:url value="/books"/>'>Books</a></li>
-
+						<li class="${current == 'index' ? 'active' : ''}"><a
+							href='<spring:url value="/index"/>'>Home</a></li>
+						<security:authorize access="hasRole('ADMIN')">
+							<li class="${current == 'customers' ? 'active' : ''}"><a
+								href='<spring:url value="/customers"/>'>Customers</a></li>
+						</security:authorize>
+						<li class="${current == 'books' ? 'active' : ''}"><a
+							href='<spring:url value="/books"/>'>Books</a></li>
+						<li class="${current == 'registration' ? 'active' : ''}"><a
+							href='<spring:url value="/register"/>'>Register</a></li>
+						<security:authorize access="!isAuthenticated()">
+							<li class="${current == 'login' ? 'active' : ''}"><a
+								href='<spring:url value="/login"/>'>Login</a></li>
+						</security:authorize>
+						<security:authorize access="isAuthenticated()">
+							<li><a href='<spring:url value="/logout"/>'>Logout</a></li>
+						</security:authorize>
 					</ul>
 
 				</div>

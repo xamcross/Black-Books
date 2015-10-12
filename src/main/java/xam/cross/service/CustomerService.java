@@ -14,6 +14,7 @@ import xam.cross.repository.CustomerRepository;
 import xam.cross.repository.ShoppingCartRepository;
 
 @Service
+@Transactional
 public class CustomerService {
 
 	@Autowired
@@ -43,6 +44,11 @@ public class CustomerService {
 		cart.setOrderedBooks(books);
 		customer.setCart(cart);
 		return customer;
+	}
+
+	
+	public void save(Customer customer) {
+		customerRepository.save(customer);
 	}
 	
 }

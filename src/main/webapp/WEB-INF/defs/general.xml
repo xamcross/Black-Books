@@ -26,4 +26,14 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/customer-info.jsp" />
 		<put-attribute name="current" value="customers" />
 	</definition>
+	<definition name="registration" extends="common">
+		<put-attribute name="title" value="Customer Registration" />
+		<put-attribute name="body" value="/WEB-INF/jsp/registration.jsp" />
+		<put-attribute name="current" value="registration" />
+	</definition>
+	<definition name="login" extends="common">
+		<put-attribute name="title" value="Black Books Log in" />
+		<put-attribute name="body" value="/WEB-INF/jsp/login.jsp" />
+		<put-attribute name="current" value="login" />
+	</definition>
 </tiles-definitions>
