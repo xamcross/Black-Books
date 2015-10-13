@@ -6,4 +6,6 @@ import xam.cross.entity.Customer;
 
 public interface CustomerRepository extends JpaRepository<Customer, Integer>{
 
+	Customer findByEmail(String email);
+
 }

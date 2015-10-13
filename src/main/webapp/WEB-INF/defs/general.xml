@@ -32,8 +32,23 @@
 		<put-attribute name="current" value="registration" />
 	</definition>
 	<definition name="login" extends="common">
-		<put-attribute name="title" value="Black Books Log in" />
+		<put-attribute name="title" value="Black Books Login" />
 		<put-attribute name="body" value="/WEB-INF/jsp/login.jsp" />
 		<put-attribute name="current" value="login" />
+	</definition>
+	<definition name="cabinet" extends="common">
+		<put-attribute name="title" value="Black Books Customer Cabinet" />
+		<put-attribute name="body" value="/WEB-INF/jsp/cabinet.jsp" />
+		<put-attribute name="current" value="cabinet" />
+	</definition>
+	<definition name="addBook" extends="common">
+		<put-attribute name="title" value="Black Books Book Creation" />
+		<put-attribute name="body" value="/WEB-INF/jsp/addBook.jsp" />
+		<put-attribute name="current" value="addBook" />
+	</definition>
+	<definition name="checkout" extends="common">
+		<put-attribute name="title" value="Black Books Checkout" />
+		<put-attribute name="body" value="/WEB-INF/jsp/checkout.jsp" />
+		<put-attribute name="current" value="checkout" />
 	</definition>
 </tiles-definitions>

@@ -1,7 +1,6 @@
 package xam.cross.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,17 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import xam.cross.entity.Customer;
-import xam.cross.entity.Role;
-import xam.cross.entity.ShoppingCart;
 import xam.cross.service.CustomerService;
-import xam.cross.service.RoleService;
-import xam.cross.service.ShoppingCartService;
 
 @Controller
 public class CustomerController {
 
 	@RequestMapping(value="/customers")
-	public String customers(Model model){	
+	public String customers(Model model){
 		model.addAttribute("customers", customerService.findAll());
 		return "customers";
 	}
@@ -31,20 +26,10 @@ public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
 	
-	@Autowired
-	private RoleService roleService;
-	
-	@Autowired
-	private ShoppingCartService cartService;
-	
 	@ModelAttribute("customer")
 	@Transactional
 	public Customer construct(){
 		Customer customer = new Customer();
-		List<Role> roles = new ArrayList<Role>();
-		Role role = roleService.findByName("ROLE_USER");
-		roles.add(role);
-		customer.setRoles(roles);
 		return customer;
 	}
 	
@@ -58,17 +43,23 @@ public class CustomerController {
 	}
 	
 	@RequestMapping(value="/register", method=RequestMethod.GET)
-	public String showRegistrationForm(Model model){
+	public String showRegistrationForm(){
 		return "registration";
 	}
 	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public String register(@ModelAttribute("customer") Customer customer){
 		customerService.save(customer);
-		ShoppingCart cart = new ShoppingCart();
-		cart.setCustomer(customer);
-		cartService.save(cart);
-		return "index";
+		return "redirect:register.html?success=true";
+	}
+	
+	@RequestMapping(value="/cabinet")
+	public String cabinet(Model model, Principal principal){
+		String username = principal.getName();
+		Customer customer = customerService.findOneWithBooks(username);
+		model.addAttribute("customer", customer);
+		model.addAttribute("cart", customer.getCart());
+		return "cabinet";
 	}
 	
 }

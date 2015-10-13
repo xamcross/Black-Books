@@ -45,6 +45,7 @@ public class InitDbService {
 		
 		Customer admin = new Customer();
 		admin.setEmail("admin@blackbooks.com");
+		admin.setEnabled(true);
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		
 		admin.setPassword(encoder.encode("admin"));
@@ -71,7 +72,7 @@ public class InitDbService {
 		Book mobyDick = new Book();
 		mobyDick.setAuthors("Herman Melville");
 		mobyDick.setPrice(4.99);
-		mobyDick.setDescription("Hunted pale mammal");
+		mobyDick.setDescription("Pale mammal gets hunted by a crazy old man");
 		mobyDick.setTitle("Moby Dick");
 		mobyDick.setCarts(carts1);
 		

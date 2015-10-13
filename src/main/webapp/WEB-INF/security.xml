@@ -6,11 +6,16 @@
 		http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security.xsd">
 	<http use-expressions="true">
-		<intercept-url pattern="/customers*" access="hasRole('USER')" />
-		<intercept-url pattern="/books**" access="hasRole('ADMIN')" />
+		<intercept-url pattern="/customers**" access="hasRole('ADMIN')" />
+		<intercept-url pattern="/customers/**" access="hasRole('ADMIN')" />
+		<intercept-url pattern="/addBook**" access="hasRole('ADMIN')" />
+		<intercept-url pattern="/books**" access="hasRole('USER')" />
+		<intercept-url pattern="/books/**" access="hasRole('USER')" />
+		<intercept-url pattern="/cabinet**" access="hasRole('USER')" />
+		<intercept-url pattern="/checkout**" access="hasRole('USER')" />
 		<form-login login-page="/login.html" login-processing-url="/j_spring_security_check"
-			username-parameter="j_username" password-parameter="j_password" />
-		<logout logout-url="/logout" />
+			username-parameter="j_username" password-parameter="j_password" default-target-url="/index"/>
+		<logout logout-url="/logout" logout-success-url="/index"/>
 		<csrf disabled="true" />
 	</http>
 
@@ -21,7 +26,7 @@
 				authorities-by-username-query="select customer.email, role.name from customer join
 				 customer_role on customer.id=customer_role.customers_id join role on customer_role.roles_id=role.id
 				 where customer.email = ?"
-				users-by-username-query="select email,password,1 from customer where email = ?" />
+				users-by-username-query="select email,password,enabled from customer where email = ?" />
 		</authentication-provider>
 	</authentication-manager>
 </beans:beans>

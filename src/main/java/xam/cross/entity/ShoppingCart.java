@@ -50,6 +50,10 @@ public class ShoppingCart {
 
 	public void setOrderedBooks(List<Book> orderedBooks) {
 		this.orderedBooks = orderedBooks;
+		this.totalPrice = 0.0;
+		for (Book book : this.orderedBooks){
+			this.totalPrice += book.getPrice();
+		}
 	}
 
 	public void setId(Integer id) {

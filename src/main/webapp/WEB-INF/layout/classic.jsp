@@ -49,15 +49,27 @@
 					<ul class="nav navbar-nav">
 						<li class="${current == 'index' ? 'active' : ''}"><a
 							href='<spring:url value="/index"/>'>Home</a></li>
+						<security:authorize access="isAuthenticated()">
+							<li class="${current == 'cabinet' ? 'active' : ''}"><a
+								href='<spring:url value="/cabinet"/>'>Cabinet</a></li>
+						</security:authorize>
 						<security:authorize access="hasRole('ADMIN')">
 							<li class="${current == 'customers' ? 'active' : ''}"><a
 								href='<spring:url value="/customers"/>'>Customers</a></li>
+							<li class="${current == 'addBook' ? 'active' : ''}"><a
+								href='<spring:url value="/addBook"/>'>Add Book</a></li>
 						</security:authorize>
 						<li class="${current == 'books' ? 'active' : ''}"><a
 							href='<spring:url value="/books"/>'>Books</a></li>
-						<li class="${current == 'registration' ? 'active' : ''}"><a
-							href='<spring:url value="/register"/>'>Register</a></li>
+						<security:authorize access="isAuthenticated()">
+							<li class="${current == 'checkout' ? 'active' : ''}"><a
+								href='<spring:url value="/checkout"/>'>Shopping Cart</a></li>
+						</security:authorize>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
 						<security:authorize access="!isAuthenticated()">
+							<li class="${current == 'registration' ? 'active' : ''}"><a
+								href='<spring:url value="/register"/>'>Register</a></li>
 							<li class="${current == 'login' ? 'active' : ''}"><a
 								href='<spring:url value="/login"/>'>Login</a></li>
 						</security:authorize>
@@ -65,7 +77,6 @@
 							<li><a href='<spring:url value="/logout"/>'>Logout</a></li>
 						</security:authorize>
 					</ul>
-
 				</div>
 			</div>
 			<!--/.nav-collapse -->

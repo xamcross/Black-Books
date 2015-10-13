@@ -22,7 +22,17 @@ public class Customer {
 	
 	private String password;
 	
-	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	private boolean enabled;
+	
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	@OneToOne(mappedBy="customer", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private ShoppingCart cart;
 	
 	

@@ -2,9 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../layout/taglib.jsp"%>
 
-<c:if test="${param.bookAdded eq true }">
-	<div class="alert alert-success">Book successfully added to cart</div>
-</c:if>
 <table class="table table-hover table-stripped">
 	<thead>
 		<tr>
@@ -16,17 +13,21 @@
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach items="${books}" var="book">
+		<c:forEach items="${cart.orderedBooks}" var="book">
 			<tr>
 				<td>${book.title }</td>
 				<td>${book.description }</td>
 				<td>${book.authors }</td>
 				<td>${book.price }</td>
-				<td><form action='<c:url value="/books/${book.id}"/>'
-						method="POST">
-						<input class="btn" type="submit" value="Add to cart" />
-					</form></td>
+				<td><a href="/checkout/${book.id}">Remove</a></td>
 			</tr>
 		</c:forEach>
+		<tr>
+				<td><strong>Total</strong></td>
+				<td></td>
+				<td></td>
+				<td><strong>${cart.totalPrice}</strong></td>
+				<td></td>
+			</tr>
 	</tbody>
 </table>
