@@ -49,10 +49,6 @@
 					<ul class="nav navbar-nav">
 						<li class="${current == 'index' ? 'active' : ''}"><a
 							href='<spring:url value="/index"/>'>Home</a></li>
-						<security:authorize access="isAuthenticated()">
-							<li class="${current == 'cabinet' ? 'active' : ''}"><a
-								href='<spring:url value="/cabinet"/>'>Cabinet</a></li>
-						</security:authorize>
 						<security:authorize access="hasRole('ADMIN')">
 							<li class="${current == 'customers' ? 'active' : ''}"><a
 								href='<spring:url value="/customers"/>'>Customers</a></li>
@@ -74,6 +70,8 @@
 								href='<spring:url value="/login"/>'>Login</a></li>
 						</security:authorize>
 						<security:authorize access="isAuthenticated()">
+							<li class="${current == 'cabinet' ? 'active' : ''}"><a
+								href='<spring:url value="/cabinet"/>'>Cabinet</a></li>
 							<li><a href='<spring:url value="/logout"/>'>Logout</a></li>
 						</security:authorize>
 					</ul>

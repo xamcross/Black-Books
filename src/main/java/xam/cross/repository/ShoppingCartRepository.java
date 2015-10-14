@@ -7,6 +7,4 @@ import xam.cross.entity.ShoppingCart;
 
 public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Integer>{
 
-	ShoppingCart findByCustomer(Customer customer);
-
 }

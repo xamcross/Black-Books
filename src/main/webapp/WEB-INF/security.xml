@@ -24,7 +24,7 @@
 		<password-encoder hash="bcrypt"/>
 			<jdbc-user-service data-source-ref="dataSource"
 				authorities-by-username-query="select customer.email, role.name from customer join
-				 customer_role on customer.id=customer_role.customers_id join role on customer_role.roles_id=role.id
+				 customer_role on customer.id=customer_role.customer_id join role on customer_role.roles_id=role.id
 				 where customer.email = ?"
 				users-by-username-query="select email,password,enabled from customer where email = ?" />
 		</authentication-provider>

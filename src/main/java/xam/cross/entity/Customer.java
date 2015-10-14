@@ -1,13 +1,11 @@
 package xam.cross.entity;
 
-import java.util.List;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
@@ -32,19 +30,17 @@ public class Customer {
 		this.enabled = enabled;
 	}
 
-	@OneToOne(mappedBy="customer", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@OneToOne
 	private ShoppingCart cart;
-	
-	
+		
 	@ManyToMany(fetch=FetchType.EAGER)
-	@JoinTable
-	private List<Role> roles;
+	private Set<Role> roles;
 
-	public List<Role> getRoles() {
+	public Set<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(List<Role> roles) {
+	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
 

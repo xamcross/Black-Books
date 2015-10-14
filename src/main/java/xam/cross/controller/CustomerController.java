@@ -36,7 +36,7 @@ public class CustomerController {
 	
 	@RequestMapping(value="/customers/{id}")
 	public String customerInfo(@PathVariable int id, Model model){
-		Customer customer = customerService.findOneWithBooks(id);
+		Customer customer = customerService.findOne(id);
 		model.addAttribute("customer", customer);
 		model.addAttribute("cart", customer.getCart());
 		return "customer-info";
@@ -49,7 +49,7 @@ public class CustomerController {
 	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public String register(@ModelAttribute("customer") Customer customer){
-		customerService.save(customer);
+		customerService.addToDb(customer);
 		return "redirect:register.html?success=true";
 	}
 	

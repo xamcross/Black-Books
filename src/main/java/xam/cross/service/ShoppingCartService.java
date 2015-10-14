@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import xam.cross.entity.Customer;
 import xam.cross.entity.ShoppingCart;
-import xam.cross.repository.BookRepository;
 import xam.cross.repository.ShoppingCartRepository;
 
 @Service
@@ -21,20 +20,21 @@ public class ShoppingCartService {
 	
 	@Autowired BookService bookService;
 
-	public void save(ShoppingCart cart) {
-		cartRepository.save(cart);
+	public ShoppingCart save(ShoppingCart cart) {
+		return cartRepository.save(cart);
 	}
 
 	public ShoppingCart findOne(String email) {
 		Customer customer = customerService.findByEmail(email);
-		return cartRepository.findByCustomer(customer);
+		return customer.getCart();
+	}
+	
+	@Transactional
+	public void removeOneBook(int cartId, int bookId) {
+
+		
 	}
 
-	public void removeOneBook(int cartId, int bookId) {
-		ShoppingCart cart = cartRepository.findOne(cartId);
-		cart.getOrderedBooks().remove(bookService.findOne(bookId));
-		cartRepository.save(cart);
-	}
 
 
 }

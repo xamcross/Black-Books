@@ -19,7 +19,7 @@
 				<td>${book.description }</td>
 				<td>${book.authors }</td>
 				<td>${book.price }</td>
-				<td><a href="/checkout/${book.id}">Remove</a></td>
+				<td><a class="btn btn-danger" href="/checkout/${book.id}">Remove</a></td>
 			</tr>
 		</c:forEach>
 		<tr>

@@ -1,11 +1,8 @@
 package xam.cross.entity;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 
 @Entity
 public class Role {
@@ -24,9 +21,6 @@ public class Role {
 		name = role;
 	}
 	
-	@ManyToMany(mappedBy="roles")
-	private List<Customer> customers;
-
 	public Integer getId() {
 		return id;
 	}
