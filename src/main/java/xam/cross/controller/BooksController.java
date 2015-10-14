@@ -20,40 +20,40 @@ public class BooksController {
 
 	@Autowired
 	private BookService bookService;
-	
+
 	@ModelAttribute("book")
 	@Transactional
-	public Book construct(){
+	public Book construct() {
 		Book book = new Book();
 		return book;
 	}
-	
-	@RequestMapping(value="/books", method=RequestMethod.GET)
-	public String getAllBooks(Model model){
+
+	@RequestMapping(value = "/books", method = RequestMethod.GET)
+	public String getAllBooks(Model model) {
 		List<Book> books = bookService.findAll();
 		model.addAttribute("books", books);
 		return "books";
 	}
-	
-	@RequestMapping(value="/books/{id}", method=RequestMethod.POST)
-	public String getAllBooks(@PathVariable("id") int id, Model model, Principal principal){
+
+	@RequestMapping(value = "/books/{id}", method = RequestMethod.POST)
+	public String getAllBooks(@PathVariable("id") int id, Model model, Principal principal) {
 		bookService.addToCart(id, principal.getName());
 		List<Book> books = bookService.findAll();
 		model.addAttribute("books", books);
 		return "redirect:/books?bookAdded=true";
 	}
-	
-	@RequestMapping(value="/addBook", method=RequestMethod.GET)
-	public String showAddBookForm(){
+
+	@RequestMapping(value = "/addBook", method = RequestMethod.GET)
+	public String showAddBookForm() {
 		return "addBook";
 	}
-	
-	@RequestMapping(value="/addBook", method=RequestMethod.POST)
-	public String addNewBook(@ModelAttribute("book") Book book, Model model){
+
+	@RequestMapping(value = "/addBook", method = RequestMethod.POST)
+	public String addNewBook(@ModelAttribute("book") Book book, Model model) {
 		bookService.save(book);
 		List<Book> books = bookService.findAll();
 		model.addAttribute("books", books);
 		return "books";
 	}
-	
+
 }
